@@ -429,7 +429,7 @@ if st.checkbox("Technical Analysis - Time Series Modeling"):
 
     # Forecasting periods
     st.write("__How many days into the future would you like to forecast?__")
-    periods = st.slider("", 0, 365)
+    periods = st.slider("Note: predictions become less accurate the further out they are.", 0, 365)
 
     if periods > 1:
         st.write("_Model Used: Facebook Prophet_")
@@ -438,12 +438,13 @@ if st.checkbox("Technical Analysis - Time Series Modeling"):
         with st.spinner(f"Calculating the future of {selected}..."):
             # Forecasting the prices
             forecast_me(selected, periods)
+            st.write("_Explanation: black dots represent actual closing prices, \nthe blue line is the forecasted price,\n blue shaded region is the confidence interval._")
 
 
 # Sentiment Analysis
 if st.checkbox("Sentiment Analysis - NLP"):
     st.write("_Using SentimentIntensityAnalyzer from NLTK.VADER_")
-    st.subheader(f"Most Recent Tweets Regarding {selected}")
+    st.subheader(f"200 Most Recent Tweets Regarding {selected}")
     
     with st.spinner(f"Getting tweets about {selected}..."):
         # Graphs the donut chart and histogram of the sentiment values
