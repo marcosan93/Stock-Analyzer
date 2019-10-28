@@ -167,7 +167,7 @@ def closing_prices(stock):
 
         # Clicking the top google result
         try:
-            search_res = driver.find_element(By.XPATH, "//*[@id='rso']/div/div/div[1]/div/div/div[1]/a/h3")
+            search_res = driver.find_element(By.XPATH, "//*[@id='rso']/div[1]/div/div/div/div/div[1]/a/h3")
             search_res.click()
         except:
             try:
@@ -200,7 +200,7 @@ def closing_prices(stock):
 
         apply = driver.find_element(By.XPATH, "//*[@id='Col1-1-HistoricalDataTable-Proxy']/section/div[1]/div[1]/button/span")
         apply.click()
-        time.sleep(random.choice(seq))
+        time.sleep(random.choice(seq[-3:]))
 
         # Finally downloading the CSV
         download = driver.find_element(By.XPATH, "//*[@id='Col1-1-HistoricalDataTable-Proxy']/section/div[1]/div[2]/span[2]/a/span")
@@ -257,7 +257,7 @@ def forecast_me(stock, pers):
             df = pd.read_csv(f'../../Downloads/{stock}.csv')
 
     except:
-        return st.subheader("Unable to find stock.  Please select a different one.")
+        return st.error("Unable to find selected stock. Please select a different one.")
     
     # Grabs the available stock csv file in the Downloads folder
     df = pd.read_csv(f'../../Downloads/{stock}.csv')
@@ -399,57 +399,78 @@ def create_sentiment(stock, tweet_cnt=200):
 # Interactive Section
 st.title("Stock Analyzer - Using Machine Learning")   
 
-image = Image.open('robot_trader.jpg')
-st.image(image, use_column_width=True)
+robot = Image.open('robot_trader.jpg')
+st.image(robot, use_column_width=True)
 
-st.write("__Which stock would you like analyzed?__")
+st.header("Which stock would you like analyzed?")
 selected = st.selectbox("Pick a stock", (list(tickers.keys()))).upper()
-st.write("_Disclaimer: Not all stocks are able to be shown._")
+st.text("(Disclaimer: Not all stocks will be able to be shown)")
 
 
-st.write("__Select a trading strategy:__")  
+st.subheader("Select a Trading Method:")  
 
 # Classifying the stock
-if st.checkbox("Fundamental Analysis - Classification"):
-    st.write("_Model Used: XGBoost_")
-    st.subheader("Classification Probability")
-    # Assigning the DF of the newest scaled Quarterly report
-    X = classify_me(og_df, df, selected)
-
-    # Predicting the probabilities of each class
-    prediction = clf.predict_proba(X)
-
+if st.checkbox("Fundamental Analysis - Classification Modeling: (Observing Finances)"):
+    "- Determining whether a stock is worth investing based on its financial health."
+    
+    # Image
+    fund = Image.open('maxresdefault.jpg')
+    st.image(fund, use_column_width=True)
     with st.spinner(f"Classifying {selected}..."):
+        st.subheader("Classification Probability")
+        
+        # Assigning the DF of the newest scaled Quarterly report
+        X = classify_me(og_df, df, selected)
+
+        # Predicting the probabilities of each class
+        prediction = clf.predict_proba(X)
+        
         # Graphing the classes probability on a pie chart
         pie_stock(prediction, selected)
+        
+        st.write("_(Model Used: XGBoost)_")
+
 
 
 # Time Series Analysis
-if st.checkbox("Technical Analysis - Time Series Modeling"):
-
+if st.checkbox("Technical Analysis - Time Series Modeling: (Observing Price Patterns)"):
+    "- Determining a stock's future price based on historical prices."
+    
+    # Image
+    tech = Image.open('tech.png')
+    st.image(tech, use_column_width=True, format='png')
+    
     # Forecasting periods
     st.write("__How many days into the future would you like to forecast?__")
     periods = st.slider("Note: predictions become less accurate the further out they are.", 0, 365)
 
     if periods > 1:
-        st.write("_Model Used: Facebook Prophet_")
-        st.subheader(f"Forecasted Prices for {selected} in the next {periods} days")
-
-        with st.spinner(f"Calculating the future of {selected}..."):
+    
+        with st.spinner(f"Calculating the future of {selected}, this may take awhile..."):
+            st.subheader(f"Forecasted Prices for {selected} in the next {periods} days")
+            
             # Forecasting the prices
             forecast_me(selected, periods)
-            st.write("_Explanation: black dots represent actual closing prices, \nthe blue line is the forecasted price,\n blue shaded region is the confidence interval._")
+            
+            st.text("Explanation:\n- Black dots represent actual closing prices \n- Blue line is the forecasted price \n- Blue shaded region is the confidence interval.")
+            st.write("_(Model Used: Facebook Prophet)_")
 
 
 # Sentiment Analysis
-if st.checkbox("Sentiment Analysis - NLP"):
-    st.write("_Using SentimentIntensityAnalyzer from NLTK.VADER_")
-    st.subheader(f"200 Most Recent Tweets Regarding {selected}")
+if st.checkbox("Sentiment Analysis - NLP on Twitter: (Observing General Opinion)"): 
+    "- Determining the stock's future based on people's thoughts and opinions."
     
-    with st.spinner(f"Getting tweets about {selected}..."):
+    # Image
+    twitter = Image.open('twitter.png')
+    st.image(twitter, use_column_width=True, format='png')
+    
+    with st.spinner(f"Getting tweets about {selected}, this may take awhile..."):
+        st.subheader(f"200 Most Recent Tweets Regarding {selected}")
+        
         # Graphs the donut chart and histogram of the sentiment values
         create_sentiment(selected)
-
+        
+        st.write("_(Using SentimentIntensityAnalyzer from NLTK.VADER)_")
 
     
     
