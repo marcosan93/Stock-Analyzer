@@ -7,7 +7,6 @@ Replacing technical, fundamental, and sentimental stock analysis with Machine Le
 - [Data Sources](#Data-Sources)
 - [Data Gathering and Cleaning](#Data-Gathering-and-Cleaning)
 - [Exploring Data](#Exploring-Data)
-- [Modeling](#Modeling)
 - [Classification](#Classification)
 - [Time Series](#Time-Series)
 - [Sentimental](#Sentimental)
@@ -19,19 +18,19 @@ Three of the most popular stock analysis methods are technical, fundamental, and
 
 ## Project Overview
 1. Collected data from three different web sources by using webscraping or API calls.
-  - Yahoo Finance for Time Series data
-  - Stockpup for Fundamental data
-  - Twitter for sentimental data
+    - Yahoo Finance for Time Series data
+    - Stockpup for Fundamental data
+    - Twitter for sentimental data
 2. Data cleaning and Exploratory Data Analysis
-  - Fundamental data was cleaned and formatted into a Pandas DataFrame.
-  - Time series data was downloaded as daily data then resampled into weekly and monthly intervals.
-  - Sentimental data was formatted into a Pandas DataFrame.
+    - Fundamental data was cleaned and formatted into a Pandas DataFrame.
+    - Time series data was downloaded as daily data then resampled into weekly and monthly intervals.
+    - Sentimental data was formatted into a Pandas DataFrame.
 3. Modeling
-  - Fundamental data was then used to train several different classification models.
-  - Time series data was fitted and trained to two time series models.
-  - Sentimental data did not require any modeling.
+    - Fundamental data was then used to train several different classification models.
+    - Time series data was fitted and trained to two time series models.
+    - Sentimental data did not require any modeling.
 4. Presentation and Frontend
-  - Streamlit was used to create a frontend for each form of analysis with their respective machine learning models.
+    - Streamlit was used to create a frontend for each form of analysis with their respective machine learning models.
 5. Next Steps
 
 ## Data Sources
@@ -49,20 +48,72 @@ Data sources for each different method of stock analysis required different webs
 
 - __Twint__ was used to scrape *Twitter*: [Twitter Scraping](Sentiment/Sentiment_Twitter.ipynb)
 
-#### Data Cleaning
-Cleaning Fundamental data from Stockpup.com
+### Data Cleaning:
+__Fundamental Data from Stockpup.com__
 
+_Every Quarterly Report was downloaded as a Pandas DataFrame and stored in a dictionary of DataFrames._
 
+For each DataFrame:
+  1. Index was set as datetime from the "Quarter end" column.
+  
+  2. 'None' values were replaced with 0 and converted to numerical values.
+  
+  3. Replaced current values with the differences between each Quarter with respect to each Stock.  (Also replaced infinite values with 1 and -1.  Also any new NaNs were replaced once again with 0.
+  
+  4. Created new columns showing the future Quarter's price high/low % change then created classes based on those values.
+    - If the future price high and future price low increased by 5% or more, then the present Quarterly report is classified as a Buy.
+    - If the future price low and future price high decreased by 5% or more, the the present Quarter report is classified as a Sell.
+    - Otherwise, the present Quarterly report is classified as a Hold.
+    
+  5. First and Last rows were excluded because the last row has no data to calculate the difference with and the first row has no data showing the future price high and low.
+  
+  6. All Quarterly Reports were then combined into one DataFrame.
+  
+  7. Checked for any remaining NaNs.  Columns with less than 500 unique values were excluded because their impact would be small if nothing at all.
+  
+  8. Resetted Index
+  
+  9. Classes were balanced by removing excess rows to match the class with least amount of rows.
+  
+  10. Finally, the final DataFrame was exported as a pickle file for modeling.
+
+[Fundamental Data Cleaning](Classification/Cleaning_Original_Data.ipynb)
+
+__Sentimental Data from Twitter__
+
+_Twint, a module used for scraping tweets, was used over the Twitter API because of Twint's flexibility and freedom._
+
+  - 200 Tweets were scraped for the sake of brevity in the presentation.  More tweets can be scraped if desired.
+  - Twint searched for any stock given based on the cashtag($) (e.g. $AMD).
+  - Retweets were filtered out.
+  - No media such as pictures or video.
+  - English tweets only.
+  - No tweets referring to web links.
+  - All tweets were then stored into a Pandas DataFrame.
+
+[Sentimental Data Cleaning](Sentiment/Sentiment_Twitter.ipynb)
+
+__Technical Data from Yahoo Finance__
+
+_Not much cleaning was required for the technical data_
+
+  - Each stock had their price data read into a Pandas DataFrame
+  - Index was set as a Datetime index from the 'Date' column
+  - Values were converted to numerical values.
+  - All columns were excluded except for closing price.
+  - Data was then resampled into weekly and monthly formats but still retaining daily as well.
+  - Last 1000 periods of data was used because they represent the current market climate better than older data.
+  - Finally, each DF of resample data was exported into a pickle file.
+  
+[Technical Data Cleaning](Time_Series/Time_Series_Cleaning_and_Exploring.ipynb)
 
 ## Exploring Data
 
-## Modeling
+## Classification
 
-### Classification
+## Time Series
 
-### Time Series
-
-### Sentimental
+## Sentimental
 
 ## Frontend and Presentation
 
