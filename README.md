@@ -5,12 +5,13 @@ Replacing technical, fundamental, and sentimental stock analysis with Machine Le
 - [Project Purpose](#Project-Purpose)
 - [Project Overview](#Project-Overview)
 - [Data Sources](#Data-Sources)
-- [Data Gathering](#Data-Gathering)
+- [Data Gathering and Cleaning](#Data-Gathering-and-Cleaning)
 - [Exploring Data](#Exploring-Data)
 - [Modeling](#Modeling)
 - [Classification](#Classification)
 - [Time Series](#Time-Series)
 - [Sentimental](#Sentimental)
+- [Frontend and Presentation](#Frontend-and-Presentation)
 - [Next Steps](#Next-Steps)
 
 ## Project Purpose
@@ -34,8 +35,24 @@ Three of the most popular stock analysis methods are technical, fundamental, and
 5. Next Steps
 
 ## Data Sources
+Data sources for each different method of stock analysis required different websources:
+- **Stockpup.com** contained 765 stock tickers and quarterly reports for each.  This was webscraped using `BeautifulSoup` and stored as separate DataFrames in a dictionary then pickled for later use.
 
-## Data Gathering
+- **Yahoo Finance** contained the daily prices for each stock searched and could be downloaded individually as a CSV file.  `Selenium` was used to automate the downloading process for any stock entered.
+
+- **Twitter** was used to source 200 tweets about any stock desired.  `Twint` was used to simplify the tweet webscraping process instead of Twitter's API due to the API's limited nature.
+
+## Data Gathering and Cleaning
+- __BeautifulSoup__ was used to scrape *Stockpup.com*: [Retrieving Data](Classification/Retrieving_Data.ipynb)
+
+- __Selenium__ was used to scrape *Yahoo Finance*: [Price Scraping](Time_Series/Closing_Price_Scraping.ipynb)
+
+- __Twint__ was used to scrape *Twitter*: [Twitter Scraping](Sentiment/Sentiment_Twitter.ipynb)
+
+#### Data Cleaning
+Cleaning Fundamental data from Stockpup.com
+
+
 
 ## Exploring Data
 
@@ -46,5 +63,7 @@ Three of the most popular stock analysis methods are technical, fundamental, and
 ### Time Series
 
 ### Sentimental
+
+## Frontend and Presentation
 
 ## Next Steps
