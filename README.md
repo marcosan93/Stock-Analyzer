@@ -111,9 +111,30 @@ _Not much cleaning was required for the technical data_
   
 ## Exploring Data
 
-__Fundamental Exploration__
+[Fundamental Exploration](Classification/Exploring_Data.ipynb)
 
-Visualization of the Class Balance between Buys, Holds, Sells.
+Visualization of the Class Balance between Buys, Holds, Sells. 
+![](Images/classbalance.png "")
+
+Classes were balanced during the cleaning process.  This is done so that randomly guessing a class label will result in a 33% success rate.
+
+
+Visualization of the correlations between each feature and the target variable _(Decision)_.
+![](Images/heatmap.png "")
+
+Here the most influential features to the 'Decision' can been seen.
+
+Visualization of the important features.  
+![](Images/featimport.png "")
+
+Using the ExtraTreesClassifier, the most important features were ranked and plotted.  According to the simple classifier, "P/B Ratio" turned out to be the most important feature when it comes to determining the correct class label.
+
+With the most important features ranked and sorted, the unimportant features were removed from the dataset and the top 10 were kept (along with the top 5 and top 20 features for comparison's sake).
+
+[Technical Exploration](Time_Series/Time_Series_Cleaning_and_Exploring.ipynb)
+
+For exploration of the technical/time series data, the last 1000 periods were used instead of the entire dataset because those 1000 periods better represent the current market climate.  These 1000 periods were derived from the Daily data as well as the Weekly and Monthly.  Weekly and Monthly were resampled Daily Data.
+
 
 
 ## Classification
