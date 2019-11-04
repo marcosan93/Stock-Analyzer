@@ -51,6 +51,8 @@ Data sources for each different method of stock analysis required different webs
 ### Data Cleaning:
 __Fundamental Data from Stockpup.com__
 
+[Fundamental Data Cleaning](Classification/Cleaning_Original_Data.ipynb)
+
 _Every Quarterly Report was downloaded as a Pandas DataFrame and stored in a dictionary of DataFrames._
 
 For each DataFrame:
@@ -77,9 +79,10 @@ For each DataFrame:
   
   10. Finally, the final DataFrame was exported as a pickle file for modeling.
 
-[Fundamental Data Cleaning](Classification/Cleaning_Original_Data.ipynb)
 
 __Sentimental Data from Twitter__
+
+[Sentimental Data Cleaning](Sentiment/Sentiment_Twitter.ipynb)
 
 _Twint, a module used for scraping tweets, was used over the Twitter API because of Twint's flexibility and freedom._
 
@@ -91,9 +94,10 @@ _Twint, a module used for scraping tweets, was used over the Twitter API because
   - No tweets referring to web links.
   - All tweets were then stored into a Pandas DataFrame.
 
-[Sentimental Data Cleaning](Sentiment/Sentiment_Twitter.ipynb)
 
 __Technical Data from Yahoo Finance__
+
+[Technical Data Cleaning](Time_Series/Time_Series_Cleaning_and_Exploring.ipynb)
 
 _Not much cleaning was required for the technical data_
 
@@ -105,9 +109,12 @@ _Not much cleaning was required for the technical data_
   - Last 1000 periods of data was used because they represent the current market climate better than older data.
   - Finally, each DF of resample data was exported into a pickle file.
   
-[Technical Data Cleaning](Time_Series/Time_Series_Cleaning_and_Exploring.ipynb)
-
 ## Exploring Data
+
+__Fundamental Exploration__
+
+Visualization of the Class Balance between Buys, Holds, Sells.
+
 
 ## Classification
 
