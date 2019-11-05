@@ -218,9 +218,17 @@ Scaling the data using SKlearn's _StandardScaler_ improved model performance ove
 
 To fully explore the classification aspect of the problem, a neural network was attempted with the top 10 features.  A variety of layers, epochs, and nodes were experimented with to find the optimum amount.
 
+![](Images/classNN.png)
+
 After training the neural network for many hours and seeing no significant improvements over the machine learning models, it was concluded that a neural network for this problem was not the best solution.  Many of the other machine learning classification models performed better than the best scored neural network.
 
 ## Time Series
+
+Numerous timeseries models were utilized to find the model with the best performance.  These models were:
+
+- FaceBook Prophet
+- SARIMAX
+- Recurrent Neural Network
 
 
 
