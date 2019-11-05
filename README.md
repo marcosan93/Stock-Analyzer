@@ -224,13 +224,54 @@ After training the neural network for many hours and seeing no significant impro
 
 ## Time Series
 
-Numerous timeseries models were utilized to find the model with the best performance.  These models were:
+Numerous time-series models were utilized to find the model with the best performance.  These models were:
 
-- FaceBook Prophet
 - SARIMAX
+- FaceBook Prophet
 - Recurrent Neural Network
 
+Each model only had one input: _Price_.  The logic behind only using price was to observe if a model would be able to pick up on any price patterns to predict on.  Prediction based on price patterns is the basis of technical analysis.
 
+### SARIMAX Modeling
+
+[SARIMAX Model](Time_Series/Time_Series_SARIMAX_Model.ipynb)
+
+SARIMAX was the first model used to forecast and analyze a stock.  The train and test sets were split in order so that the test set contained the most recent values which was 20% of the original dataset.
+
+![](Images/SARIMAX.png)
+
+- SARIMAX had to be _GridSearched_ to find the optimum parameters.  This was done using a custom function that would loop through each possible combination of values for SARIMAX using the entire dataset.
+- Once optimal parameters were found, they were used to fit the model to the training set and then the forecasted values and the actual values (test values) were visualized.
+- Finally, the entire dataset was fitted with the optimal parameters and then the forecasted values and confidence intervals were forecasted.
+
+### FaceBook Prophet Modeling
+
+[Facebook Prophet Model](Time_Series/Time_Series_FBProphet_Model.ipynb)
+
+Facebook Prophet was the next model used to forecast a stock's future prices.  Train, test, split was not done here and searching for optimal parameters was not required.
+
+![](Images/fbproph.png)
+
+- At the core of FBProphet is an additive regression model.
+- FB Prophet is able to produce high quality forecasts with much less effort and in less time than other Time Series models.
+- In order to create forecasted prices, FBProphet needs to predict from a newly created dataframe of future dates.
+- These predictions and forecasts are presented as seen above.
+- Facebook Prophet also allows a visualization of the components of the forecast.
+
+### Recurrent Neural Network (LSTM)
+
+[RNN LSTM Model](Time_Series/Time_Series_RNN_Weekly.ipynb)
+
+A recurrent neural network (specifically a Long Short Term Memory Network) was attempted to see if its predictions were better than normal time series models.
+
+- An LSTM was used specifically because it is best suited for time series data.
+- Many layers, nodes, and epochs were experimented with to find the best performing network.
+- Data had to be split into sequences; a function was written for this exact purpose.
+- Each sequence has a number of periods to look back and a number of periods to predict.
+
+After training the neural network for several hours, the predictions were reasonably realistic but time to train was extremely time consuming and only stock was able to be forecasted/predicted.
+
+_Being able to use a neural network flexibly and quickly is not possible with the current resources.  As a result, the Facebook Prophet model was determined to be the best option for stock time series data._
 
 ## Sentimental
 
