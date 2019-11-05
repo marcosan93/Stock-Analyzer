@@ -264,6 +264,8 @@ Facebook Prophet was the next model used to forecast a stock's future prices.  T
 
 A recurrent neural network (specifically a Long Short Term Memory Network) was attempted to see if its predictions were better than normal time series models.
 
+![](Images/RNNLSTM.png)
+
 - An LSTM was used specifically because it is best suited for time series data.
 - Many layers, nodes, and epochs were experimented with to find the best performing network.
 - Data had to be split into sequences; a function was written for this exact purpose.
