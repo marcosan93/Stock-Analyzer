@@ -224,6 +224,8 @@ After training the neural network for many hours and seeing no significant impro
 
 ## Time Series
 
+For the Technical data/analysis, Time-series models were used to forecast the next set of stock prices for any stock.
+
 Numerous time-series models were utilized to find the model with the best performance.  These models were:
 
 - SARIMAX
