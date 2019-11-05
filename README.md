@@ -135,9 +135,80 @@ With the most important features ranked and sorted, the unimportant features wer
 
 For exploration of the technical/time series data, the last 1000 periods were used instead of the entire dataset because those 1000 periods better represent the current market climate.  These 1000 periods were derived from the Daily data as well as the Weekly and Monthly.  Weekly and Monthly were resampled Daily Data.
 
+Visualization of the Daily Differences in Price data
+![](Images/dailydiff.png "")
 
+Differencing the data was done to check for sationarity.  This step is necessary for any ARMA modeling.
+
+Visualization of the ACF and PACF
+![](Images/acfpacf.png "")
+
+The ACF and PACF was done to check for any seasonality with the time series data.
+
+[Sentiment Exploration](Sentiment/Sentiment_Twitter.ipynb)
+
+_Exploration of the Sentiment data was done as the final presentation of sentiment analysis because no modeling was done to the data.  A more in-depth look into the sentiment data is under the Sentimental section of this README._
 
 ## Classification
+
+For the fundamental data, classification models were used to determine if a stock was a Buy, Hold, or Sell.  Numerous Classification models were implemented to find the best performing model.  These models are:
+
+    - XGBoost
+    - AdaBoost
+    - Random Forest
+    - SVM
+    - KNN
+    - Neural Network
+    
+Out of all these Classification models, XGBoost performed the best:
+
+    - Training Score: 47%
+    - Testing Score: 45%
+    
+XGBoost's confusion matrix
+
+![](Images/confmat.png)
+
+This confusion matrix was created from XGBoost modeling the top 10 features from the original dataset.
+
+_Most of the other models were performing with scores around 35% - 43% range for both their Testing and Training set._
+
+### Feature Selection and Feature Engineering for Classification Features
+
+[Feature Selection and Engineering](Classification/Exploring_Data.ipynb)
+
+Many different approaches to the fundamental features were considered to improve the performance of the models.
+
+These approaches were:
+
+* Feature Interactions
+* Principle Component Analysis (PCA)
+* Feature Importance
+* Scaling the Data
+
+__Feature Interactions__
+
+Through the use of SKlearn's _PolynomialFeatures_ and _StandardScaler_, the features from the original dataset all interacted with each other.  Any feature that involved _Price_ was removed to prevent any data leakage as well as the class labels and self-interacting features.  After removing those features, a little over 700 features still remain.  
+
+__Principle Component Analysis (PCA)__
+
+Because there are a little over 700 features now in the dataset, many features must be removed to simplify the computing process as well as to avoid the "Curse of Dimensionality".  To lessen the amount of features, PCA was utilized, which was able to reduce the number of features from 700+ to 79.
+
+(E.g. [PCA Modeling](Classification/Modeling(Int_feats)-SVM.ipynb))
+
+_After using many different models on the data from the reduced number of features, the training and testing scores performed no better than the model scores on the non-interacted features._
+
+__Feature Importance__
+
+By using the top 20, top 10, and top 5 most important features derived from the ExtraTreesClassifier, different modeling scores were captured from various models.  This was done to compare the performance of each model under the different number of top features.
+
+(E.g. [Top 20 feature modeling](Classification/Modeling-XGBoost-20.ipynb))
+
+_After modeling each number of important features, the top 10 most important features proved to be the best performing set of features to model._
+
+__Scaling the Data__
+
+Scaling the data using SKlearn's _StandardScaler_ improved model performance over unscaled data.
 
 ## Time Series
 
