@@ -196,7 +196,7 @@ Because there are a little over 700 features now in the dataset, many features m
 
 (E.g. [PCA Modeling](Classification/Modeling(Int_feats)-SVM.ipynb))
 
-_After using many different models on the data from the reduced number of features, the training and testing scores performed no better than the model scores on the non-interacted features._
+_After using many different models on the data from the reduced number of features, the training and testing scores did not perform significantly better than the model scores on the non-interacted features._
 
 __Feature Importance__
 
@@ -210,7 +210,19 @@ __Scaling the Data__
 
 Scaling the data using SKlearn's _StandardScaler_ improved model performance over unscaled data.
 
+[Scaled Modeling](Classification/Modeling-KNN.ipynb) vs. [Unscaled Modeling](Classification/Modeling-KNN-unscaled.ipynb)
+
+### Deep Learning Neural Network for Classification
+
+[Neural Network Classification](Classification/NeuralNetwork-Classification-10.ipynb)
+
+To fully explore the classification aspect of the problem, a neural network was attempted with the top 10 features.  A variety of layers, epochs, and nodes were experimented with to find the optimum amount.
+
+After training the neural network for many hours and seeing no significant improvements over the machine learning models, it was concluded that a neural network for this problem was not the best solution.  Many of the other machine learning classification models performed better than the best scored neural network.
+
 ## Time Series
+
+
 
 ## Sentimental
 
