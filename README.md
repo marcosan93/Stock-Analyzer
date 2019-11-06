@@ -1,5 +1,8 @@
 # Stock Analyzer
-Replacing technical, fundamental, and sentimental stock analysis with Machine Learning Models
+
+<img src="Images/robot_trader.jpg" align="right" width="450" height="450">
+
+Applying technical, fundamental, and sentimental stock analysis with Machine Learning Models
 
 ## Table of Contents
 - [Project Purpose](#Project-Purpose)
@@ -151,6 +154,8 @@ _Exploration of the Sentiment data was done as the final presentation of sentime
 
 ## Classification
 
+![](Images/maxresdefault.jpg)
+
 For the fundamental data, classification models were used to determine if a stock was a Buy, Hold, or Sell.  Numerous Classification models were implemented to find the best performing model.  These models are:
 
     - XGBoost
@@ -224,6 +229,8 @@ After training the neural network for many hours and seeing no significant impro
 
 ## Time Series
 
+![](Images/tech.png)
+
 For the Technical data/analysis, Time-series models were used to forecast the next set of stock prices for any stock.
 
 Numerous time-series models were utilized to find the model with the best performance.  These models were:
@@ -279,6 +286,53 @@ _Being able to use a neural network flexibly and quickly is not possible with th
 
 ## Sentimental
 
+![](Images/twitter.png)
+
+[Sentiment Analysis](Sentiment/Sentiment_Twitter.ipynb)
+
+Sentimental Data was collected from Twitter, which was made possible by using the module _Twint_.  Twint was used over Twitter's API because Twint is more flexible and less limited than the Twitter API.
+
+- 200 tweets were gathered for any stock requested by using its cashtag($). (More tweets could be gathered but for the sake of time and efficiency, 200 was the limit for now).
+- _NLTK's VADER_ was used to find the sentiment score for each tweet, which ranged from -1 to 1.
+- This score was then assigned to a new column for the tweets.
+- Each score was then classified as positive, negative, or neutral using a custom function.
+- The new dataframe contains only the tweet, sentiment (-1 to 1), and feeling (pos, neg, neu).
+- Visualization of the data was the next step after the data was formatted correctly.
+- No modeling was required for this entire process.
+
+A donut chart was used to visualize the count of tweets (displaying the percentage of the 200 tweets)
+
+![](Images/donut.png)
+
+A histogram distribution was used to visualize the sentiment score of the tweets with x-ticks of -1, 0, and 1 replaced with negative, neutral, and positive respectively.
+
+![](Images/sentscore.png)
+
+_By observing these sentiment visualizations, the hope is that a user would be able to determine the general opinion of the stock without having to look through various tweets themselves._
+
 ## Frontend and Presentation
 
+[Final presentation Streamlit frontend](Presentation.py)
+
+In order to present the Technical, Fundamental, and Sentimental analyses in a visually appealing format, __Streamlit__ was implemented as a frontend.
+
+Before an actual frontend with Streamlit was considered, a normal Jupyter Notebook was used to present the visualizations of every analysis: [Presentation without Streamlit](Presentation.ipynb)
+
+Once an outline of the presentation in a jupyter notebook was established, then a presentation utilizing Streamlit was able to be used by opening the python file using streamlit's command.
+
+The frontend app or presentation is interactive allowing the user to select any stock from a given list (765 stocks from Stockpup) to analyze.  Once a stock is selected, the user will be able to choose which form of analysis (fundamental, technical, and sentimental) to use on the selected stock.
+
+- If the user selects Fundamental, then a classification model (XGBoost) is ran on the newest Quarterly Report data.  The classification probability is then visualized and presented to the user.
+
+- If the user selects Technical, then the user determines how long into the future they want to forecast by using a slider from 0 to 365 days.  Next, Selenium is used to scrape the latest closing prices from Yahoo Finance, which is then modeled using Facebook Prophet.  FBprophet then visualizes the forecast and displays it to the user.
+
+- If the user selects Sentimental, then Twint gathers the latest tweets regarding the selected stock.  NLTK's VADER then analyzes the sentiment which is later visualized with the donut chart and histogram chart.
+
+_Alternatively, a user is able to select all three methods of analysis._
+
 ## Next Steps
+
+- To truly gather the most up to date quarterly reports for the classification model, webscraping other websites besides Stockpup must be done.
+- Time Series models could possibly use other exogenous variables from Technical indicators such as MACD, Stochastic, RSI, etc.
+- More time for neural network training to find the optimum number of layers/nodes by using the _TPOTClassifier_.
+- Possibly a closer examination of the sentimental data from Twitter.  Also, maybe scrape from Stocktwits for more relevant sentimental data.
