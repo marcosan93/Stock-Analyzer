@@ -334,5 +334,5 @@ _Alternatively, a user is able to select all three methods of analysis._
 
 - To truly gather the most up to date quarterly reports for the classification model, webscraping other websites besides Stockpup must be done.
 - Time Series models could possibly use other exogenous variables from Technical indicators such as MACD, Stochastic, RSI, etc.
-- More time for neural network training to find the optimum number of layers/nodes by using the _TPOTClassifier_.
+- More time for neural network training to find the optimum number of layers/nodes by gridsearching the hyperparameters with potentially the _TPOTClassifier_ or other methods.
 - Possibly a closer examination of the sentimental data from Twitter.  Also, maybe scrape from Stocktwits for more relevant sentimental data.
