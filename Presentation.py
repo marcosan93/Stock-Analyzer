@@ -146,7 +146,7 @@ def closing_prices(stock):
                  "profile.managed_default_content_settings.geolocation":2,
                  "profile.managed_default_content_settings.media_stream":2}
         chromeOptions.add_experimental_option("prefs",prefs)
-        chromeOptions.add_extension(r"/Users/flatironschool/Desktop/extension_1_22_4_0.crx")
+        chromeOptions.add_extension(r"/Users/flatironschool/Desktop/Analyzing-Stocks/extension_1_22_4_0.crx")
 
         # Opening a browser to google search
         driver = webdriver.Chrome(options=chromeOptions)
@@ -399,7 +399,7 @@ def create_sentiment(stock, tweet_cnt=200):
 # Interactive Section
 st.title("Stock Analyzer - Using Machine Learning")   
 
-robot = Image.open('robot_trader.jpg')
+robot = Image.open('Images/robot_trader.jpg')
 st.image(robot, use_column_width=True)
 
 st.header("Which stock would you like analyzed?")
@@ -414,7 +414,7 @@ if st.checkbox("Fundamental Analysis - Classification Modeling: (Observing Finan
     "- Determining whether a stock is worth investing based on its financial health."
     
     # Image
-    fund = Image.open('maxresdefault.jpg')
+    fund = Image.open('Images/maxresdefault.jpg')
     st.image(fund, use_column_width=True)
     with st.spinner(f"Classifying {selected}..."):
         st.subheader("Classification Probability")
@@ -437,7 +437,7 @@ if st.checkbox("Technical Analysis - Time Series Modeling: (Observing Price Patt
     "- Determining a stock's future price based on historical prices."
     
     # Image
-    tech = Image.open('tech.png')
+    tech = Image.open('Images/tech.png')
     st.image(tech, use_column_width=True, format='png')
     
     # Forecasting periods
@@ -461,7 +461,7 @@ if st.checkbox("Sentiment Analysis - NLP on Twitter: (Observing General Opinion)
     "- Determining the stock's future based on people's thoughts and opinions."
     
     # Image
-    twitter = Image.open('twitter.png')
+    twitter = Image.open('Images/twitter.png')
     st.image(twitter, use_column_width=True, format='png')
     
     with st.spinner(f"Getting tweets about {selected}, this may take awhile..."):
